@@ -1,0 +1,68 @@
+.form-controll {
+	width:50%;
+	padding:10px;
+}
+.content-center {
+	margin:auto;
+	text-align:center;
+}
+.mt-sm-4 {
+	margin-top:5px;
+}
+.btn-danger {
+	background-color: red;
+}
+.btn-danger:hover {
+	background-color: orange;
+	transition:.75s;
+}
+.form-design {
+	background-color: #fff8f2;
+    box-shadow: 4px 5px 10px black;
+    border-radius:5px;
+    margin-top:3%;
+}
+.text-font-design {
+	font-family: 'Fredoka One', cursive;
+	font-size:25;
+
+}
+
+input[type=text]:focus {
+	border:1px solid grey;
+	background-color: orange;
+	transition: .75s;
+	-webkit-transition: 0.5s;
+	box-sizing: border-box;
+	outline:none;
+}
+input[type=password]:focus {
+	border:1px solid grey;
+	background-color: orange;
+	outline:none;
+	-webkit-transition: 0.5s;
+	box-sizing: border-box;
+	transition: .75s;
+}
+input[type=email]:focus {
+	border:1px solid grey;
+	background-color: orange;
+	outline:none;
+	-webkit-transition: 0.5s;
+	box-sizing: border-box;
+	transition: .75s;
+}
+
+input {
+	border:1px solid grey;
+	border-radius: 5px;
+}
+
+.login-signup-logo {
+	border-radius: 50%;
+	height:50px;
+}
+
+.mb-lg-4 {
+	margin-bottom:30px;
+}

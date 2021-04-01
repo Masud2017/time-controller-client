@@ -1,0 +1,183 @@
+@import "compass/css3";
+
+$dark: rgba(0,0,0, 0.87);
+$light: #efefef;
+$color: #b3e5fc;
+
+@mixin navToggle($left, $top) {
+  position: absolute;
+  width: 30px;
+  height: 60px;
+  top: $top;
+  left: $left;
+  transition-duration: 0.5s;
+}
+
+@mixin icon($height, $width) {
+  transition-duration: 0.5s;
+  position: absolute;
+  height: $height;
+  top: 25px;
+  width: $width;
+  background-color: $dark;
+}
+
+@mixin icon-before($height, $width) {
+  transition-duration: 0.5s;
+  position: absolute;
+  width: $width;
+  height: $height;
+  background-color: $dark;
+  content: "";
+  top: -10px;
+}
+
+@mixin icon-after($height, $width) {
+  transition-duration: 0.5s;
+  position: absolute;
+  width: $width;
+  height: $height;
+  background-color: $dark;
+  content: "";
+  top: 10px;
+}
+
+body{
+  background-color: $light;
+  font-family: 'Roboto', sans-serif;
+  color: $dark;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+nav{
+  width: 100%;
+  max-height: 100px;
+  background-color: white;
+  transition-duration: 0.5s;
+  transition-timing-function: swing;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.1), 0px 4px 8px rgba(0,0,0,0.1);
+  
+  
+  &.open{
+    max-height: 700px;
+    transition: max-height 0.5s ease-in;
+  }
+  
+  h2 {
+    transition: 0.5s;
+    position: absolute;
+    font-size: 1.75em;
+    top: 15px;
+    right: 32px;
+    font-weight: 300;
+    b {
+      font-weight: 500;
+    }
+    @media (max-width: 768px){
+      font-size: 1.5em;
+      top: 16px;
+      span {display: none;}
+    }
+  }
+  
+  ul{
+    padding-top: 100px;
+    
+    
+    li{
+      list-style: none;
+      padding: 1em 2em 1em 1.5em;
+      transition: all 0.5s;
+      
+      a{
+        display: inline-block;
+        text-decoration: none;
+        font-size: 1.1em;
+        color: $dark;
+      }
+      
+      &:hover {
+        background: $color;
+        
+        a {
+          text-decoration: none;
+        }
+      }
+      &:active {
+        background: darken($color, 10%);
+      }
+      &:last-child {
+        margin-bottom: 1em;
+      }
+    }
+  }
+}
+
+.navToggle{
+  @include navToggle(32px, 20px);
+  
+  &:hover{
+      cursor: pointer;
+  }
+  
+  .icon-left {
+    @include icon(4px, 15px);
+    
+    &:before{
+      @include icon-before(4px, 15px);
+    }
+    
+    &:after{
+      @include icon-after(4px, 15px);
+    }
+  }
+  
+  .icon-right {
+    @include icon(4px, 15px);
+    left: 15px;
+    
+    &:before{
+      @include icon-before(4px, 15px);
+    }
+    
+    &:after{
+      @include icon-after(4px, 15px);
+    }
+  }
+  
+  &.open {
+    .icon-left {
+      transition-duration: 0.5s;
+      background: transparent;
+      
+      &:before{
+        transform: rotateZ(45deg) scaleX(1.4) translate(2px, 2px);
+      }
+
+      &:after{
+        transform: rotateZ(-45deg) scaleX(1.4) translate(2px, -2px);
+      }
+    }
+    
+    .icon-right {
+      transition-duration: 0.5s;
+      background: transparent;  
+      
+      &:before{
+        transform: rotateZ(-45deg) scaleX(1.4) translate(-2px, 2px);
+      }
+
+      &:after{
+        transform: rotateZ(45deg) scaleX(1.4) translate(-2px, -2px);
+      }
+    }
+  }
+}
+.x {
+  padding: 0;
+  margin: 0;
+}
