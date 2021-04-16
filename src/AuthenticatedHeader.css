@@ -1,0 +1,27 @@
+.add-task-btn {
+	background-color:red;
+	padding:10px;
+	color:white;
+	border:none;
+	border-radius: 5px;
+	width:350px;
+}
+
+.add-task-btn:hover {
+	background-color: orange;
+	transition: .5s;
+}
+
+.content-center {
+	display: flex;
+	justify-content: center;
+}
+
+.regular-btn {
+	background-color:red;
+	color:white;
+	padding:5px;
+	width:70px;
+	border:none;
+	border-radius: 5px;
+}

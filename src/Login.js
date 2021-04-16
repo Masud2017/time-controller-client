@@ -10,47 +10,43 @@ import {
 } from 'react-router-dom';
 
 import axios from "axios";
-
+// import {axios} from "./ax";
 
 const Login = (props)=> {
     const [email,setEmail] = useState(""); // testing 
     const [password,setPassword] = useState(""); // testing 
 
-    var bodyFormData = new FormData();
-    bodyFormData.append("email",email);
-    bodyFormData.append("password",password);
+    // var bodyFormData = new FormData();
+    // bodyFormData.append("email",email);
+    // bodyFormData.append("password",password);
    
-    const submitForm = (event)=> {
-        var proxyUrl = "http://localhost:4444";
-        var uri = "/api/v1/authenticate";
-
-        var requestJson = {
-            method:"post",
-            url:proxyUrl+uri,
-            data : {
-                "email":email,
-                "password":password
-            }
-            ,
-            headers: {
-                "Access-Control-Allow-Origin":"*",
-                "Content-Type":"application/json",
-            },
-            Vary:'Origin'
-            
-        };
-
-        //var proxyUrl = "https://www.googleapis.com";
-        //var url = "/youtube/v3/channels?id=UCyQSAi4Xh5ZQKpMPLEUPSrA&key=AIzaSyBYzmjpQYOb15ueTx3-Y2QcgI8_21Xlhr0&part=snippet,statistics&fields=items(id,snippet,statistics)";
-       // axios.post(requestJson)
-
-        axios(requestJson).then(res=>alert(res.data)).catch (err=>console.log("Error : "+err));
-        /*axios.post("localhost:4444/api/v1/authenticate",{},{
-            auth:{"email":"msmasud578@gmail.com",
-            "password":"jpmasudxp"
-        }}).then(res=>alert(res.data)); */
-        //axios.get(proxyUrl+url,{headers:{"Access-Control-Allow-Origin": "*","Content-Type":"application/json","Pojo":"papa"}},{"Vary":"Origin"}).then(res=>alert(res.data)).catch(err=>console.log(err),{withCredentials:true});
+    const submitForm = async (event)=> {
         event.preventDefault();
+
+
+        const res = await axios.post("http://localhost:4444/api/v1/authenticate",{
+            "email":email,
+            "password":password
+        },{withCredentials:false})
+        .catch(err=>console.log(err));
+
+        localStorage.setItem("token",res.data.token);
+
+        const profileImage = await axios.get("http://localhost:4444/api/v1/profile-image",{headers:{"Authorization":"Bearer "+localStorage.getItem("token")}}).catch(err=>console.log(err));
+        localStorage.setItem("profileImage",profileImage.data);
+        //alert("Awaited data "+profileImage.data);
+        //alert(localStorage.getItem("profileImage"));
+
+        const authenticatedUserInfo = await axios.get("http://localhost:4444/api/v1/whoami",{headers:{"Authorization":"Bearer "+localStorage.getItem("token")}})
+        alert(authenticatedUserInfo.data.name+" Email : "+authenticatedUserInfo.data.email);
+        
+
+        window.location.reload();
+
+        // const res2 = axios.get("http://localhost:4444/api/v1/profile-image",{headers:{'Authorization':"Bearer "+localStorage.getItem("token")}}).then(res=>alert(res)).catch(err=>console.log("Sorry image can't be pulled from the server for the reason : "+err));
+
+        // console.log(res2);
+
     }
 
     return (

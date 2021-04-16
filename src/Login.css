@@ -11,9 +11,11 @@
 }
 .btn-danger {
 	background-color: red;
+	border: none;
 }
 .btn-danger:hover {
 	background-color: orange;
+	border :none;
 	transition:.75s;
 }
 .form-design {
