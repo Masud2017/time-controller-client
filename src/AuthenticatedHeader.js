@@ -17,6 +17,9 @@ import "./AuthenticatedHeader.css";
 
 import NoTask from "./NoTask";
 
+import Setting from "./Setting";
+import AuthenticatedHome from "./AuthenticatedHome";
+
 const AuthenticatedHeader = ()=> {
 	const history = useHistory();
 
@@ -24,38 +27,6 @@ const AuthenticatedHeader = ()=> {
         localStorage.clear();
         window.location.reload();
     }
-
-
-
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
-
-
-
-     var subtitle;
-  const [modalIsOpen,setIsOpen] = useState(false);
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
-  }
-
-  function closeModal(){
-    setIsOpen(false);
-  }
-
-
 
     const fetchUser = ()=> {
         axios.get("http://localhost:4444/api/v1/user",{headers:{"Authorization":"Bearer "+localStorage.getItem("token")}})
@@ -75,10 +46,6 @@ const customStyles = {
                 // image.src = "data:image/gif;base64,"+res.data;
                 // var w = window.open("");
                 // w.document.write(image.outerHTML);
-
-
-
-
     }
 
 
@@ -98,6 +65,7 @@ const customStyles = {
     document.addEventListener("DOMContentLoaded", function(event) { 
         fetchUser();
         axios.get("http://localhost/api/v1/user/4",{headers:{"Authorization": "Bearer "+localStorage.getItem("token")}}).then(res=>{alert(res)}).catch(err=>console.log(err));
+        document.getElementById("user-name").innerHTML = localStorage.getItem("name");
     });
 	return (
 			<div>
@@ -105,49 +73,27 @@ const customStyles = {
                         <ul type = "none" className = "nav-bar">
                                 <div>
                                     <img alt = "something went wong" id = "image" className="nav-image"/>
-
+                                    <li className = "nav-item user-name" id = "user-name"></li>
                                     <li className = "nav-item"><Link to ="/" className = "nav-link">Home</Link></li>
-                                    <li className = "nav-item"><Link to ="/login" className = "nav-link">Login</Link></li>
-                                    <li className = "nav-item"><Link to ="/signup" className = "nav-link">Signup</Link></li>
+                                    <li className = "nav-item"><Link to ="/setting" className = "nav-link">Setting</Link></li>
                                     <li className = "nav-item"><Link onClick={logout} className = "nav-link">Logout</Link></li>
 
                                 </div>
                         </ul>
                                 <Switch>
                                     <Route exact path="/">
-                                        <p>Hello home</p>
+                                        <AuthenticatedHome/>
                                     </Route>
 
-                                    <Route path="/login">
-                                        <p>Hello login</p>
+                                    <Route path="/setting">
+                                        <Setting/>
                                     </Route>
-                                    <Route path="/signup">
-                                        <p>Hello signup</p>
-                                    </Route>
+                                   
                                     
                                 </Switch>
                     </Router>
 
-                    <div className = "content-center">
-                        <button className = "add-task-btn" onClick={openModal}>Add task</button>
-
-                         <Modal
-                              isOpen={modalIsOpen}
-                              onAfterOpen={afterOpenModal}
-                              onRequestClose={closeModal}
-                              style={customStyles}
-                              contentLabel="Example Modal"
-                         >
-
-                          <h2 ref={_subtitle => (subtitle = _subtitle)}>Add your Task</h2>
-                          <button onClick={closeModal} className = "regular-btn">close</button>
-                          
-                          <form>
-                            <input type = "text" name = "Name" placeholder = "Task name" className = ""/>
-                          </form>
-                        </Modal>
-                    </div>
-                    <NoTask/>
+                    
 			</div>
 		);
 }

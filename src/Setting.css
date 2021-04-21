@@ -1,0 +1,25 @@
+.container-grid {
+	margin-top:10px;
+	margin-left:1%;
+	display: grid;
+	grid-template-columns: 350px auto;
+}
+
+.setting-list {
+	list-style-type: none;
+	display: block;
+}
+
+.setting-item {
+	
+	padding:10px;
+	border-bottom:1px solid grey;
+	text-decoration: none;
+}
+
+.setting-item:hover {
+	background-color: orange;
+	transition: .5s;
+	color:white;
+	text-decoration: none;
+}

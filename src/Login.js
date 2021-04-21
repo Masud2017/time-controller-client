@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import './Login.css';
 import Header from './Header';
+import imageToBase64 from 'image-to-base64/browser';
 
 import {
     BrowserRouter as Router,
@@ -33,18 +34,22 @@ const Login = (props)=> {
         localStorage.setItem("token",res.data.token);
 
         const profileImage = await axios.get("http://localhost:4444/api/v1/profile-image",{headers:{"Authorization":"Bearer "+localStorage.getItem("token")}}).catch(err=>console.log(err));
-        localStorage.setItem("profileImage",profileImage.data);
+        if (profileImage) {
+            localStorage.setItem("profileImage",profileImage.data);
+        } else {
+            localStorage.setItem("profileImage","/home/unroot/Desktop/profile-avator.png");
+        }
         //alert("Awaited data "+profileImage.data);
         //alert(localStorage.getItem("profileImage"));
 
         const authenticatedUserInfo = await axios.get("http://localhost:4444/api/v1/whoami",{headers:{"Authorization":"Bearer "+localStorage.getItem("token")}})
         alert(authenticatedUserInfo.data.name+" Email : "+authenticatedUserInfo.data.email);
+        localStorage.setItem("name",authenticatedUserInfo.data.name);
         
 
         window.location.reload();
 
         // const res2 = axios.get("http://localhost:4444/api/v1/profile-image",{headers:{'Authorization':"Bearer "+localStorage.getItem("token")}}).then(res=>alert(res)).catch(err=>console.log("Sorry image can't be pulled from the server for the reason : "+err));
-
         // console.log(res2);
 
     }

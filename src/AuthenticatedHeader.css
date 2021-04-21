@@ -12,7 +12,7 @@
 	transition: .5s;
 }
 
-.content-center {
+.content-center-text {
 	display: flex;
 	justify-content: center;
 }

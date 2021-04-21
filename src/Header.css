@@ -21,6 +21,16 @@
     color: black;
     margin-left:10px;
 }
+
+.user-name {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: black;
+    margin-left:10px;
+}
+
 .nav-link:hover {
     background-color:red;
     overflow:hidden;

@@ -1,0 +1,12 @@
+.margin-left {
+	margin-left:40%;
+}
+.underline {
+	background-image: linear-gradient(to right,red,yellow);
+	padding:10px;
+	margin-bottom:5px;
+}
+
+.coda-caption {
+	font-family: 'Coda Caption', sans-serif;
+}
