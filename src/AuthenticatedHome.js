@@ -14,13 +14,13 @@ const AuthenticatedHome = ()=> {
 	    right                 : 'auto',
 	    bottom                : 'auto',
 	    marginRight           : '-50%',
-	    transform             : 'translate(-50%, -50%)'
+	    transform             : 'translate(-50%, -50%)',
 	  }
 	};
 
 
 
-     var subtitle;
+  var subtitle;
   const [modalIsOpen,setIsOpen] = useState(false);
   function openModal() {
     setIsOpen(true);
@@ -54,14 +54,10 @@ const AuthenticatedHome = ()=> {
                           
                           
                           <form>
-                            <input type = "text" name = "Name" placeholder = "Task name" className = ""/><br/>
-                            <textarea name = "description" row = "10" col = "30"/><br/>
-                            <input type = "text" name = "Name" placeholder = "Task name" className = ""/><br/>
-                            <input type = "text" name = "Name" placeholder = "Task name" className = ""/><br/>
-                            <input type = "text" name = "Name" placeholder = "Task name" className = ""/><br/>
-                            <input type = "text" name = "Name" placeholder = "Task name" className = ""/><br/>
-                            <input type = "text" name = "Name" placeholder = "Task name" className = ""/><br/>
-                            <input type = "text" name = "Name" placeholder = "Task name" className = ""/><br/>
+                            <input type = "text" name = "Name" placeholder = "Task name" className = "form-controll"/><br/>
+                            <textarea name = "description" row = "10" col = "30" className = "description"/><br/>
+                            <input type = "date" name = "date" placeholder = "Task name" className = "date"/><br/>
+                            <input min = "0" type = "number" name = "duration" className = "form-controll"/><br/>
 
                           </form>
                           <button onClick={closeModal} className = "regular-btn">close</button>
