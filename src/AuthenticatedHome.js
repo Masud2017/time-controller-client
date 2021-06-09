@@ -1,7 +1,10 @@
-import NoTask from "./NoTask";
+import Task from "./Task";
 import Modal from 'react-modal';
 import {useState} from "react";
 import "./AuthenticatedHome.css";
+import ConditionalTaskListRenderer from "./ConditionalTaskListRenderer";
+import axios from "axios";
+
 
 
 
@@ -36,10 +39,11 @@ const AuthenticatedHome = ()=> {
   }
 
 
+
 	return (
 			<div>
 				<div className = "content-center-text">
-                        <button className = "add-task-btn" onClick={openModal}>Add task</button>
+                        <button className = "add-task-btn mt-sm-4-add-task-btn" onClick={openModal}>Add task</button>
 
                          <Modal
                               isOpen={modalIsOpen}
@@ -64,7 +68,7 @@ const AuthenticatedHome = ()=> {
                           <button onClick={closeModal} className = "regular-btn margin-left">Add</button>
                         </Modal>
                     </div>
-                    <NoTask/>
+                    <Task/>
 			</div>
 		);
 }

@@ -25,3 +25,7 @@
 	border:none;
 	border-radius: 5px;
 }
+
+.mt-sm-4-add-task-btn {
+	margin-top: 15px;
+}
