@@ -9,6 +9,11 @@ import axios from "axios";
 
 
 const AuthenticatedHome = ()=> {
+  const [nameFile,setName] = useState(null);
+  const [description,setDescription] = useState(null);
+  const [duration,setDuration] = useState(null);
+  const [done,setDone] = useState(null);
+  const [date,setDate] = useState(null);
 
 	const customStyles = {
 	  content : {
@@ -20,7 +25,6 @@ const AuthenticatedHome = ()=> {
 	    transform             : 'translate(-50%, -50%)',
 	  }
 	};
-
 
 
   var subtitle;
@@ -38,6 +42,27 @@ const AuthenticatedHome = ()=> {
     setIsOpen(false);
   }
 
+  const addTodo = async (event)=> {
+    event.preventDefault();
+    alert(nameFile+"\nDesc "+description);
+
+    await axios.post("http://localhost:4444/api/v1/todo/todo0",
+    {
+        "nameFile":nameFile,
+        "description":description,
+        "duration":duration,
+        "done":done,
+        "date":date
+    },
+    {
+      headers:
+              {
+                "Authorization":"Bearer "+localStorage.getItem("token")
+              },
+              }).catch(err=>console.log("Request todo : +"+err));
+
+    closeModal();
+  }
 
 
 	return (
@@ -58,14 +83,14 @@ const AuthenticatedHome = ()=> {
                           
                           
                           <form>
-                            <input type = "text" name = "Name" placeholder = "Task name" className = "form-controll"/><br/>
-                            <textarea name = "description" row = "10" col = "30" className = "description"/><br/>
-                            <input type = "date" name = "date" placeholder = "Task name" className = "date"/><br/>
-                            <input min = "0" type = "number" name = "duration" className = "form-controll"/><br/>
+                            <input type = "text" name = "nameFile" placeholder = "Task name" onChange = {(event)=>setName(event.target.value)} className = "form-controll"/><br/>
+                            <textarea name = "description" row = "10" onChange = {(event)=> setDescription(event.target.value)} col = "30" className = "description"/><br/>
+                            <input type = "date" name = "date" placeholder = "Task name" onChange = {(event)=> setDate(event.target.value)} className = "date"/><br/>
+                            <input min = "0" type = "number" name = "duration" onChange = {(event)=> setDuration(event.target.value)} className = "form-controll"/><br/>
 
                           </form>
                           <button onClick={closeModal} className = "regular-btn">close</button>
-                          <button onClick={closeModal} className = "regular-btn margin-left">Add</button>
+                          <button onClick={addTodo} className = "regular-btn margin-left">Add</button>
                         </Modal>
                     </div>
                     <Task/>
