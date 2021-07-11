@@ -61,7 +61,8 @@ const AuthenticatedHome = ()=> {
               },
               }).catch(err=>console.log("Request todo : +"+err));
 
-    closeModal();
+    // closeModal();
+    window.location.reload();
   }
 
 
