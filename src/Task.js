@@ -3,6 +3,7 @@ import list from "./TodoListEntity";
 import axios from "axios";
 import {useState} from "react";
 import "./Task.css";
+import {formatTimeLeft,startTime,remainingPathColor} from "./timerUtil/timer";
 
 const Task = ()=> {
 	var [list,setList] = useState(null);
@@ -38,12 +39,8 @@ const Task = ()=> {
 			isTodoListAvailable = false;
 		}
 	}
-	
-	document.addEventListener("readystatechange",event=> {
-		// if (event.target.readyState == "interactive") {
-		// 	alert("Hi this is interactive stuff");
-		// }
 
+	document.addEventListener("readystatechange",event=> {
 		if (event.target.readyState == "complete") {
 			fetchTask();
 		}
@@ -135,6 +132,32 @@ const Task = ()=> {
 		document.getElementById("cancel-btn"+item.id).style.display = "none";
 
 	}
+//<text x = "28" y = "56" fill = "red">20:50</text>
+	const stopWatch = (item)=> {
+		document.getElementById("stop-watch"+item.id).innerHTML = `
+			<div style = "position:relative;height:300px;width:300px">
+				<svg style = "transform: scaleX(-1);" viewBox="0 0 100 100">
+					<g style = "fill:none;stroke:none">
+						<circle cx="50" cy="50" r="45" style = "stroke:grey;stroke-width:7"></circle>
+						<path
+							id="base-timer-path-remaining"
+							stroke-dasharray="283 283"
+							class = "base-timer__path-remaining ${remainingPathColor}"
+								d="
+								M 50, 50
+								m -45, 0
+								a 45,45 0 1,0 90,0
+								a 45,45 0 1,0 -90,0
+								"
+						></path>
+					</g>
+				</svg>
+				<span id = "timeLeft" style = "position:absolute;width:300px;height:300px;top:0;display:flex;align-items:center;justify-content:center;font-size:48px;">
+					${formatTimeLeft(item.duration)}
+				</span>
+			</div>
+		`;
+	}
 
 	if (list == null) {
 		
@@ -159,7 +182,13 @@ const Task = ()=> {
 								</div>
 								<div className = "todo-body" id = {"todo-body"+item.id}>{item.description}</div>
 
-								<div class = "todo-duration" id = {"todo-duration"+item.id}>{item.duration}</div>
+								
+								<div class = "todo-duration duration-grid" id = {"todo-duration"+item.id}>
+									{item.duration}
+									<button type = "button" onClick = {(event)=>stopWatch(item)} className = "stopwatch-btn">Stopwatch</button>
+									<div id = {"stop-watch"+item.id}></div>
+									<button type = "button" onClick = {startTime}>Start time</button>
+								</div>
 								<div class = "todo-status" id = {"todo-status"+item.id}>{item.done}</div>
 								<div class = "todo-date" id = {"todo-date"+item.id}>{item.date}</div>
 								<button type = "button" className = "save-btn" id = {"save-btn"+item.id} onClick = {(event)=>saveBtn(item)}>Save</button>
